@@ -19,7 +19,7 @@ public class AuthenticationFilter implements Filter {
 
 	private static final String LOGIN = "/login";
 	private static final String REGISTER = "/register";
-	private static final String HOME = "/home";
+	private static final String HOME = "/product";
 	private static final String ROOT = "/";
 
 	@Override

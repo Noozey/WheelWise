@@ -61,8 +61,10 @@ public class LoginController extends HttpServlet {
 		Boolean loginStatus = loginService.loginUser(UserModel);
 
 		if (loginStatus != null && loginStatus) {
+			String role = UserModel.getRole();
+			System.out.print(role);
 			SessionUtil.setAttribute(req, "username", username);
-			CookieUtil.addCookie(resp, "role", "User", 5 * 30);
+			CookieUtil.addCookie(resp, "role", role, 5 * 30);
 			resp.sendRedirect(req.getContextPath() + "/product"); // Redirect to /home
 		} else {
 			handleLoginFailure(req, resp, loginStatus);

@@ -40,8 +40,8 @@ public class RegisterService {
 			return null;
 		}
 
-		String insertQuery = "INSERT INTO User (first_name, last_name, username, dob, gender, email, number, password, image_path) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertQuery = "INSERT INTO User (first_name, last_name, username, dob, gender, email, number, password, image_path,role) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
 
 		try (PreparedStatement insertStmt = dbConn.prepareStatement(insertQuery)) {
 
@@ -55,6 +55,7 @@ public class RegisterService {
 			insertStmt.setString(7, UserModel.getNumber());
 			insertStmt.setString(8, UserModel.getPassword());
 			insertStmt.setString(9, UserModel.getImagePath());
+			insertStmt.setString(10, "user");
 
 			return insertStmt.executeUpdate() > 0;
 		} catch (SQLException e) {
