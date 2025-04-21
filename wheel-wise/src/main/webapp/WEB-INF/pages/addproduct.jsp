@@ -6,56 +6,102 @@
 	<meta charset="UTF-8">
 	<title>Add Product</title>
 	<style>
-		body {
-			font-family: Arial, sans-serif;
-			background-color: #f5f5f5;
-			padding: 40px;
-		}
 
-		form {
-			background-color: #ffffff;
-			padding: 30px;
-			border-radius: 10px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			max-width: 500px;
-			margin: auto;
-		}
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #0e0e0e;
+	padding: 40px;
+	color: #ffffff;
+}
 
-		form span {
-			display: block;
-			margin-bottom: 20px;
-		}
+form {
+	background-color: #1e1e1e;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+	max-width: 900px;
+	margin: auto;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 20px;
+}
 
-		label {
-			display: block;
-			margin-bottom: 6px;
-			font-weight: bold;
-			color: #333333;
-		}
+form h2 {
+	grid-column: span 2;
+	color: #ffffff;
+	font-size: 28px;
+	margin-bottom: 20px;
+}
 
-		.input {
-			width: 100%;
-			padding: 10px;
-			border: 1px solid #cccccc;
-			border-radius: 6px;
-			font-size: 16px;
-			box-sizing: border-box;
-		}
+form span {
+	display: block;
+	grid-column: span 2;
+	margin-bottom: 20px;
+	color: #cccccc;
+}
 
-		.submit-button {
-			background-color: #007bff;
-			color: white;
-			border: none;
-			padding: 12px 20px;
-			border-radius: 6px;
-			font-size: 16px;
-			cursor: pointer;
-			transition: background-color 0.3s ease;
-		}
+label {
+	display: block;
+	margin-bottom: 6px;
+	font-weight: 600;
+	color: #dddddd;
+}
 
-		.submit-button:hover {
-			background-color: #0056b3;
-		}
+.input {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #444444;
+	border-radius: 6px;
+	background-color: #2a2a2a;
+	color: #ffffff;
+	font-size: 15px;
+	box-sizing: border-box;
+}
+
+.input:focus {
+	border-color: #8a2be2;
+	outline: none;
+	box-shadow: 0 0 6px rgba(138, 43, 226, 0.5);
+}
+
+.submit-button {
+	grid-column: span 2;
+	background-color: #8a2be2;
+	color: white;
+	border: none;
+	padding: 18px 0;
+	border-radius: 10px;
+	font-size: 17px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+    width: 80%;
+    justify-self: center;
+}
+
+.submit-button:hover {
+	background-color: #6a1bbf;
+}
+
+input[type="file"] {
+	background-color: transparent;
+	color: #ffffff;
+}
+
+::file-selector-button {
+	background-color: #8a2be2;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-right: 10px;
+	transition: background-color 0.3s ease;
+}
+
+::file-selector-button:hover {
+	background-color: #6a1bbf;
+}
+
 	</style>
 </head>
 <body>

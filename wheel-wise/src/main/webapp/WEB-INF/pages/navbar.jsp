@@ -1,19 +1,34 @@
-<div id="header" style="padding:0px;">
-	<header>
-  <nav class="navbar">
-    <a href="#" class="logo">
-  <img src="https://i.postimg.cc/gcZdykyW/jeep.png" alt="car" class="logo-img"></a>
+<div id="header">
+  <header>
+    <nav class="navbar">
+      <!-- Logo -->
+      <a href="${pageContext.request.contextPath}/home" class="logo">
+        <img src="${pageContext.request.contextPath}/resources/images/logo/logo.png" alt="Car Logo" class="logo-img">
+        <span class="brand-name">WheelWise</span>
+      </a>
 
-    <div class="menu-toggle" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
-    <ul id="nav-menu">
-      <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
-      <li><a href="${pageContext.request.contextPath}/product">Product</a></li>
-      <li><a href="${pageContext.request.contextPath}/profile">Profile</a></li>
-      <li><a href="${pageContext.request.contextPath}/about">About us</a></li>
-      <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
-    </ul>
-  </nav>
-	</header>
+      <!-- Hamburger -->
+      <div class="menu-toggle" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+
+      <!-- Menu -->
+      <ul id="nav-menu" class="nav-menu">
+        <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+        <li><a href="${pageContext.request.contextPath}/product">Product</a></li>
+        <li><a href="${pageContext.request.contextPath}/profile">Profile</a></li>
+        <li><a href="${pageContext.request.contextPath}/about">About Us</a></li>
+        <li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
+      </ul>
+
+      <!-- Auth Buttons -->
+      <div class="auth-buttons">
+        <a href="${pageContext.request.contextPath}/login" class="btn login-btn">Login</a>
+        <a href="${pageContext.request.contextPath}/register" class="btn signup-btn">Sign Up</a>
+      </div>
+    </nav>
+  </header>
+  <script type="text/javascript">
+  
+  </script>
 </div>

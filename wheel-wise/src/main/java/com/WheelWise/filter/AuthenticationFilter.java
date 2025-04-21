@@ -45,13 +45,20 @@ public class AuthenticationFilter implements Filter {
 		Cookie roleCookie = CookieUtil.getCookie(req, "role");
 		String role = roleCookie != null ? roleCookie.getValue() : null;
 
-		// Allow access to public resources and static files
-		if (uri.endsWith(PRODUCT) || uri.endsWith(ABOUTUS) || uri.endsWith(CONTACT) || uri.endsWith(HOME)
-				|| uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(".css") || uri.endsWith(".js")
-				|| uri.endsWith(".png") || uri.endsWith(".jpg") || uri.equals(req.getContextPath() + ROOT)) {
+		// Always allow static resources
+		if (uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png") || uri.endsWith(".jpg")
+				|| uri.endsWith(".jpeg") || uri.endsWith(".woff") || uri.endsWith(".woff2") || uri.endsWith(".ttf")
+				|| uri.endsWith(".svg")) {
+			chain.doFilter(request, response);
+			return;
+		}
 
-			// If the user is an admin, prevent access to public pages
-			if ("admin".equals(role)) {
+		// Allow access to public pages
+		if (uri.endsWith(PRODUCT) || uri.endsWith(ABOUTUS) || uri.endsWith(CONTACT) || uri.endsWith(HOME)
+				|| uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.equals(req.getContextPath() + ROOT)) {
+
+			// If the user is an admin, prevent access to login or register
+			if ("admin".equals(role) || "user".equals(role) && (uri.endsWith(LOGIN) || uri.endsWith(REGISTER))) {
 				res.sendRedirect(req.getContextPath() + ADMIN_DASHBOARD);
 				return;
 			}
@@ -62,17 +69,13 @@ public class AuthenticationFilter implements Filter {
 
 		// If not logged in, redirect to login
 		if (!isLoggedIn) {
-			if (uri.endsWith(HOME) || uri.endsWith(PRODUCT) || uri.endsWith(ABOUTUS) || uri.endsWith(CONTACT)) {
-				chain.doFilter(request, response);
-			} else {
-				res.sendRedirect(req.getContextPath() + LOGIN);
-			}
+			res.sendRedirect(req.getContextPath() + LOGIN);
 			return;
 		}
 
 		// If logged in as admin
 		if ("admin".equals(role)) {
-			if (uri.endsWith(ADMIN_DASHBOARD)) {
+			if (uri.endsWith(ADMIN_DASHBOARD) || uri.endsWith(".css")) {
 				chain.doFilter(request, response);
 			} else {
 				res.sendRedirect(req.getContextPath() + ADMIN_DASHBOARD);

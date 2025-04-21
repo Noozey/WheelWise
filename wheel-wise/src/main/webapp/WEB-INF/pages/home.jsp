@@ -21,8 +21,7 @@
   <!-- HOME SECTION -->
   <section class="home" id="home">
     <div class="text">
-      <h1><span>Looking</span> For <br>Car Parts</h1>
-      <p>Where Will the Road Take You? What does your car need and Find Out!</p>
+      <h1 style="color:white;"><span>Looking</span> <br>For Car Parts</h1>
     </div>
 
     <div class="form-container">

@@ -48,7 +48,7 @@ body {
 }
 
 .hero-slider a {
-  background: var(--accent);
+  background: var(--accent-foreground);
   padding: 12px 24px;
   border-radius: 6px;
   color: var(--accent-foreground);
@@ -241,7 +241,7 @@ body {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   min-height: 80vh;
-   background: url("../resources/images/Car-Website-1-2x.png") no-repeat center right;
+   background: url("../resources/images/car.jpg") no-repeat center right;
   background-size: cover;
   padding: 100px;
   position: relative;
