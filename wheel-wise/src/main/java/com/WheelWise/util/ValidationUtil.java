@@ -43,8 +43,8 @@ public class ValidationUtil {
 	// 7. Validate if a password is composed of at least 1 capital letter, 1 number,
 	// and 1 symbol
 	public static boolean isValidPassword(String password) {
-		String passwordRegex = "^(?=.[A-Z])(?=.\\d)(?=.[@$!%?&])[A-Za-z\\d@$!%*?&]{8,}$";
-		return password != null && password.matches(passwordRegex);
+		String passwordRegex = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%*?&]{8,}$";
+		return password.matches(passwordRegex);
 	}
 
 	// 8. Validate if a Part's file extension matches with image extensions (jpg,
