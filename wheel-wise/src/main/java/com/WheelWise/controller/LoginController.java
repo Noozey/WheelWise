@@ -57,18 +57,24 @@ public class LoginController extends HttpServlet {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 
-		UserModel UserModel = new UserModel(username, password);
-		Boolean loginStatus = loginService.loginUser(UserModel);
+		UserModel userModel = new UserModel(username, password);
+		Boolean loginStatus = loginService.loginUser(userModel);
 
 		if (loginStatus != null && loginStatus) {
-			String role = UserModel.getRole();
-			System.out.print(role);
+			String role = userModel.getRole();
+			int userId = userModel.getId(); // Assuming ID is set in validatePassword
+			System.out.println("Role: " + role + ", ID: " + userId);
+
+			SessionUtil.setAttribute(req, "userId", userId);
 			SessionUtil.setAttribute(req, "username", username);
-			CookieUtil.addCookie(resp, "role", role, 5 * 30);
-			resp.sendRedirect(req.getContextPath() + "/product"); // Redirect to /home
+			SessionUtil.setAttribute(req, "role", role);
+
+			CookieUtil.addCookie(resp, "role", role, 60 * 5);
+			resp.sendRedirect(req.getContextPath() + "/home"); // Redirect to /home
 		} else {
 			handleLoginFailure(req, resp, loginStatus);
 		}
+
 	}
 
 	/**

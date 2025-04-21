@@ -2,6 +2,7 @@ package com.WheelWise.filter;
 
 import java.io.IOException;
 
+import com.WheelWise.util.CookieUtil;
 import com.WheelWise.util.SessionUtil;
 
 import jakarta.servlet.Filter;
@@ -11,6 +12,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -19,50 +21,83 @@ public class AuthenticationFilter implements Filter {
 
 	private static final String LOGIN = "/login";
 	private static final String REGISTER = "/register";
-	private static final String HOME = "/product";
+	private static final String HOME = "/home";
 	private static final String ROOT = "/";
+	private static final String ADMIN_DASHBOARD = "/admindashboard";
+	private static final String PRODUCT = "/product";
+	private static final String ABOUTUS = "/about";
+	private static final String CONTACT = "/contact";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// Initialization logic, if required
+		// Initialization logic, if needed
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		// Cast the request and response to HttpServletRequest and HttpServletResponse
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 
-		// Get the requested URI
 		String uri = req.getRequestURI();
+		boolean isLoggedIn = SessionUtil.getAttribute(req, "username") != null;
+		Cookie roleCookie = CookieUtil.getCookie(req, "role");
+		String role = roleCookie != null ? roleCookie.getValue() : null;
 
-		if (uri.endsWith(".css") || uri.endsWith(HOME) || uri.endsWith(ROOT)) {
+		// Allow access to public resources and static files
+		if (uri.endsWith(PRODUCT) || uri.endsWith(ABOUTUS) || uri.endsWith(CONTACT) || uri.endsWith(HOME)
+				|| uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.endsWith(".css") || uri.endsWith(".js")
+				|| uri.endsWith(".png") || uri.endsWith(".jpg") || uri.equals(req.getContextPath() + ROOT)) {
+
+			// If the user is an admin, prevent access to public pages
+			if ("admin".equals(role)) {
+				res.sendRedirect(req.getContextPath() + ADMIN_DASHBOARD);
+				return;
+			}
+
 			chain.doFilter(request, response);
 			return;
 		}
 
-		// Get the session and check if user is logged in
-		boolean isLoggedIn = SessionUtil.getAttribute(req, "username") != null;
-
+		// If not logged in, redirect to login
 		if (!isLoggedIn) {
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
+			if (uri.endsWith(HOME) || uri.endsWith(PRODUCT) || uri.endsWith(ABOUTUS) || uri.endsWith(CONTACT)) {
 				chain.doFilter(request, response);
 			} else {
 				res.sendRedirect(req.getContextPath() + LOGIN);
 			}
-		} else {
-			if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
-				res.sendRedirect(req.getContextPath() + HOME);
-			} else {
-				chain.doFilter(request, response);
-			}
+			return;
 		}
+
+		// If logged in as admin
+		if ("admin".equals(role)) {
+			if (uri.endsWith(ADMIN_DASHBOARD)) {
+				chain.doFilter(request, response);
+			} else {
+				res.sendRedirect(req.getContextPath() + ADMIN_DASHBOARD);
+			}
+			return;
+		}
+
+		// Prevent regular users from accessing admin dashboard
+		if (uri.endsWith(ADMIN_DASHBOARD)) {
+			res.sendRedirect(req.getContextPath() + HOME);
+			return;
+		}
+
+		// Prevent logged-in users from accessing login or register
+		if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
+			res.sendRedirect(req.getContextPath() + HOME);
+			return;
+		}
+
+		// Allow access to all other pages for logged-in regular users
+		chain.doFilter(request, response);
 	}
 
 	@Override
 	public void destroy() {
-		// Cleanup logic, if required
+		// Cleanup logic if needed
 	}
 }

@@ -34,23 +34,23 @@ public class LoginService {
 	/**
 	 * Validates the user credentials against the database records.
 	 *
-	 * @param UserModel the UserModel object containing user credentials
+	 * @param userModel the UserModel object containing user credentials
 	 * @return true if the user credentials are valid, false otherwise; null if a
 	 *         connection error occurs
 	 */
-	public Boolean loginUser(UserModel UserModel) {
+	public Boolean loginUser(UserModel userModel) {
 		if (isConnectionError) {
 			System.out.println("Connection Error!");
 			return null;
 		}
 
-		String query = "SELECT username, password,role FROM User WHERE username = ?";
+		String query = "SELECT user_id, username, password, role FROM User WHERE username = ?";
 		try (PreparedStatement stmt = dbConn.prepareStatement(query)) {
-			stmt.setString(1, UserModel.getUserName());
+			stmt.setString(1, userModel.getUserName());
 			ResultSet result = stmt.executeQuery();
 
 			if (result.next()) {
-				return validatePassword(result, UserModel);
+				return validatePassword(result, userModel);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -63,19 +63,21 @@ public class LoginService {
 	/**
 	 * Validates the password retrieved from the database.
 	 *
-	 * @param result    the ResultSet containing the username and password from the
-	 *                  database
-	 * @param UserModel the UserModel object containing user credentials
+	 * @param result    the ResultSet containing user details from the database
+	 * @param userModel the UserModel object containing user credentials
 	 * @return true if the passwords match, false otherwise
 	 * @throws SQLException if a database access error occurs
 	 */
-	private boolean validatePassword(ResultSet result, UserModel UserModel) throws SQLException {
+	private boolean validatePassword(ResultSet result, UserModel userModel) throws SQLException {
 		String dbUsername = result.getString("username");
 		String dbPassword = result.getString("password");
 		String dbRole = result.getString("role");
-		UserModel.setRole(dbRole);
+		int dbId = result.getInt("user_id");
 
-		return dbUsername.equals(UserModel.getUserName())
-				&& PasswordUtil.decrypt(dbPassword, dbUsername).equals(UserModel.getPassword());
+		userModel.setRole(dbRole);
+		userModel.setId(dbId);
+
+		return dbUsername.equals(userModel.getUserName())
+				&& PasswordUtil.decrypt(dbPassword, dbUsername).equals(userModel.getPassword());
 	}
 }

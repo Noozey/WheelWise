@@ -31,7 +31,7 @@ public class homecontroller extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getRequestDispatcher("/product").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/pages/home.jsp").forward(request, response);
 	}
 
 	/**

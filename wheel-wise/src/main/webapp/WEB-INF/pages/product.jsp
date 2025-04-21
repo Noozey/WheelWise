@@ -9,35 +9,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Car Parts Product Page with Filters</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/navbar.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/product.css">
+	href="${pageContext.request.contextPath}/css/products.css">
+
 </head>
 <body>
-	<nav class="main-nav">
-		<div class="nav-content">
-			<div class="logo">WheelWise</div>
-			<ul class="nav-links">
-				<li>
-					<a href="#">Home</a>
-				</li>
-				<li>
-					<a href="#">Products</a>
-				</li>
-				<li>
-					<a href="#">Profile</a>
-				</li>
-				<li>
-					<a href="#">Contact Us</a>
-				</li>
-				<li>
-					<a href="#">About Us</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-
+<!-- Navbar -->
+	<jsp:include page="navbar.jsp" />
+	
 	<div class="container">
-		<header>
+		<header class="header">
 			<div class="header-content">
 				<div class="search-container">
 					<input type="text" id="search" placeholder="Search parts...">

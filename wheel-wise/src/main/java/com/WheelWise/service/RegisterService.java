@@ -64,4 +64,30 @@ public class RegisterService {
 			return null;
 		}
 	}
+
+	public static boolean updateUserProfile(int userId, String firstName, String lastName, String username, String dob,
+			String gender, String email, String phoneNumber, String password) throws ClassNotFoundException {
+
+		String sql = "UPDATE User SET first_name = ?, last_name = ?, username = ?, dob = ?, gender = ?, email = ?, number = ?, password = ? WHERE user_id = ?";
+
+		try (Connection conn = DbConfig.getDbConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+			stmt.setString(1, firstName);
+			stmt.setString(2, lastName);
+			stmt.setString(3, username);
+			stmt.setString(4, dob);
+			stmt.setString(5, gender);
+			stmt.setString(6, email);
+			stmt.setString(7, phoneNumber);
+			stmt.setString(8, password);
+			stmt.setInt(9, userId);
+
+			int rowsUpdated = stmt.executeUpdate();
+			return rowsUpdated > 0;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
 }

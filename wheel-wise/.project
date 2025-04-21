@@ -28,4 +28,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/webapp/resources</name>
+			<type>2</type>
+			<location>/Users/nooze/eclipse-workspace/wheel-wise/src/main/webapp/resources</location>
+		</link>
+	</linkedResources>
 </projectDescription>
