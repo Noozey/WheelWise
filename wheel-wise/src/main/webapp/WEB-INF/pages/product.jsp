@@ -16,9 +16,9 @@
 
 </head>
 <body>
-<!-- Navbar -->
+	<!-- Navbar -->
 	<jsp:include page="navbar.jsp" />
-	
+
 	<div class="container">
 		<header class="header">
 			<div class="header-content">
@@ -148,21 +148,38 @@
 
 			<section class="products">
 				<c:forEach var="product" items="${products}">
-					<div class="product-card">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/product/${product.imageUrl}">
-						<div class="product-info">
-							<h3>${product.name}</h3>
-							<p class="brand">${product.brand}</p>
-							<p class="category">${product.category}</p>
-							<div class="product-footer">
-								<span class="price">${product.price}</span>
-								<button class="add-to-cart">Add to Cart</button>
+					<a
+						href="${pageContext.request.contextPath}/productInformation?id=${product.id}"
+						class="product-link">
+						<div class="product-card">
+							<img
+								src="${pageContext.request.contextPath}/resources/images/product/${product.imageUrl}">
+							<div class="product-info">
+								<h3>${product.name}</h3>
+								<p class="brand">${product.brand}</p>
+								<p class="category">${product.category}</p>
+								<div class="product-footer">
+									<span class="price">${product.price}</span>
+									<form action="${pageContext.request.contextPath}/cart"
+										method="post" class="cart-form">
+										<input type="hidden" name="action" value="add" />
+										<input type="hidden" name="productId" value="${product.id}" />
+										<input type="hidden" name="quantity" value="1" />
+										<button type="submit" class="add-to-cart">Add to Cart</button>
+									</form>
+								</div>
+
 							</div>
+
 						</div>
-					</div>
+
+					</a>
+
+
+
 				</c:forEach>
 			</section>
+
 		</main>
 	</div>
 </body>

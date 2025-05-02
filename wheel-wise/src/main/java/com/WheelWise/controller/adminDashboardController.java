@@ -31,7 +31,7 @@ public class adminDashboardController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		response.getWriter().append("Served at: ").append(request.getContextPath());
-		request.getRequestDispatcher("WEB-INF/pages/adminDashboard.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/pages/admin/adminDashboard.jsp").forward(request, response);
 	}
 
 	/**

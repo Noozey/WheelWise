@@ -51,7 +51,7 @@ public class CookieUtil {
 	public static void deleteCookie(HttpServletResponse response, String name) {
 		Cookie cookie = new Cookie(name, null);
 		cookie.setMaxAge(0);
-		cookie.setPath("/"); // Make cookie available to the entire application
+		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
 }

@@ -41,6 +41,14 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// Capture the referrer URL
+		String referer = request.getHeader("referer");
+		if (referer != null) {
+			// Store the referer URL in the session for later redirection
+			SessionUtil.setAttribute(request, "referer", referer);
+		}
+
+		// Forward to login page
 		request.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(request, response);
 	}
 
@@ -69,12 +77,16 @@ public class LoginController extends HttpServlet {
 			SessionUtil.setAttribute(req, "username", username);
 			SessionUtil.setAttribute(req, "role", role);
 
-			CookieUtil.addCookie(resp, "role", role, 60 * 5);
-			resp.sendRedirect(req.getContextPath() + "/home"); // Redirect to /home
+			CookieUtil.addCookie(resp, "role", role, 60 * 30);
+
+			if ("admin".equals(role)) {
+				resp.sendRedirect(req.getContextPath() + "/admindashboard");
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/home");
+			}
 		} else {
 			handleLoginFailure(req, resp, loginStatus);
 		}
-
 	}
 
 	/**
@@ -92,13 +104,10 @@ public class LoginController extends HttpServlet {
 		String errorMessage;
 		if (loginStatus == null) {
 			errorMessage = "Our server is under maintenance. Please try again later!";
-
 		} else {
 			errorMessage = "User credential mismatch. Please try again!";
-
 		}
 		req.setAttribute("error", errorMessage);
 		req.getRequestDispatcher("/WEB-INF/pages/login.jsp").forward(req, resp);
 	}
-
 }

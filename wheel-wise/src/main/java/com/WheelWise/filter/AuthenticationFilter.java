@@ -25,8 +25,10 @@ public class AuthenticationFilter implements Filter {
 	private static final String ROOT = "/";
 	private static final String ADMIN_DASHBOARD = "/admindashboard";
 	private static final String PRODUCT = "/product";
+	private static final String ADMINPRODUCT = "/products";
 	private static final String ABOUTUS = "/about";
 	private static final String CONTACT = "/contact";
+	private static final String order = "/order";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -41,61 +43,60 @@ public class AuthenticationFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		String uri = req.getRequestURI();
+		String contextPath = req.getContextPath();
+		String path = uri.substring(contextPath.length());
+
 		boolean isLoggedIn = SessionUtil.getAttribute(req, "username") != null;
 		Cookie roleCookie = CookieUtil.getCookie(req, "role");
 		String role = roleCookie != null ? roleCookie.getValue() : null;
 
-		// Always allow static resources
-		if (uri.endsWith(".css") || uri.endsWith(".js") || uri.endsWith(".png") || uri.endsWith(".jpg")
-				|| uri.endsWith(".jpeg") || uri.endsWith(".woff") || uri.endsWith(".woff2") || uri.endsWith(".ttf")
-				|| uri.endsWith(".svg")) {
+		// Allow static resources
+		if (path.matches(".*\\.(css|js|png|jpg|jpeg|woff2?|ttf|svg)$")) {
 			chain.doFilter(request, response);
 			return;
 		}
 
-		// Allow access to public pages
-		if (uri.endsWith(PRODUCT) || uri.endsWith(ABOUTUS) || uri.endsWith(CONTACT) || uri.endsWith(HOME)
-				|| uri.endsWith(LOGIN) || uri.endsWith(REGISTER) || uri.equals(req.getContextPath() + ROOT)) {
+		// Public pages
+		boolean isPublic = path.equals(LOGIN) || path.equals(REGISTER) || path.equals(HOME) || path.equals(ROOT)
+				|| path.equals(PRODUCT) || path.equals(ABOUTUS) || path.equals(CONTACT);
 
-			// If the user is an admin, prevent access to login or register
-			if ("admin".equals(role) || "user".equals(role) && (uri.endsWith(LOGIN) || uri.endsWith(REGISTER))) {
-				res.sendRedirect(req.getContextPath() + ADMIN_DASHBOARD);
-				return;
-			}
+		// Admin user trying to access login or register – redirect to dashboard
+		if (isLoggedIn && ("admin".equals(role) || "user".equals(role))
+				&& (path.equals(LOGIN) || path.equals(REGISTER))) {
+			res.sendRedirect(contextPath + (role.equals("admin") ? ADMIN_DASHBOARD : HOME));
+			return;
+		}
 
+		// Allow public pages
+		if (isPublic) {
 			chain.doFilter(request, response);
 			return;
 		}
 
-		// If not logged in, redirect to login
+		// Not logged in, trying to access protected page – redirect to login
 		if (!isLoggedIn) {
-			res.sendRedirect(req.getContextPath() + LOGIN);
+			res.sendRedirect(contextPath + LOGIN);
 			return;
 		}
 
-		// If logged in as admin
+		// Admin access rules
 		if ("admin".equals(role)) {
-			if (uri.endsWith(ADMIN_DASHBOARD) || uri.endsWith(".css")) {
+			if (path.equals(ADMIN_DASHBOARD) || path.startsWith("/admin") || path.matches(".*\\.(css|js)$")
+					|| path.equals(ADMINPRODUCT) || path.equals(order)) {
 				chain.doFilter(request, response);
 			} else {
-				res.sendRedirect(req.getContextPath() + ADMIN_DASHBOARD);
+				res.sendRedirect(contextPath + ADMIN_DASHBOARD);
 			}
 			return;
 		}
 
-		// Prevent regular users from accessing admin dashboard
-		if (uri.endsWith(ADMIN_DASHBOARD)) {
-			res.sendRedirect(req.getContextPath() + HOME);
+		// User trying to access admin dashboard
+		if (path.equals(ADMIN_DASHBOARD)) {
+			res.sendRedirect(contextPath + HOME);
 			return;
 		}
 
-		// Prevent logged-in users from accessing login or register
-		if (uri.endsWith(LOGIN) || uri.endsWith(REGISTER)) {
-			res.sendRedirect(req.getContextPath() + HOME);
-			return;
-		}
-
-		// Allow access to all other pages for logged-in regular users
+		// All other cases – allow
 		chain.doFilter(request, response);
 	}
 

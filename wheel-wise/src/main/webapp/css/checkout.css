@@ -1,0 +1,116 @@
+@charset "UTF-8";
+
+:root {
+    --background: #09090b;
+    --foreground: #fafafa;
+    --card: #18181b;
+    --card-foreground: #fafafa;
+    --border: #27272a;
+    --input: #27272a;
+    --primary: #fafafa;
+    --primary-foreground: #18181b;
+    --secondary: #27272a;
+    --secondary-foreground: #fafafa;
+    --muted: #27272a;
+    --muted-foreground: #a1a1aa;
+    --accent: #27272a;
+    --accent-foreground: #fafafa;
+    --radius: 0.5rem;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+    padding: 2rem;
+    margin: 0;
+}
+
+.checkout-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--card);
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.checkout-container h1,
+.checkout-container h2 {
+    margin-bottom: 1rem;
+    color: var(--foreground);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.delivery-section,
+.payment-section,
+.order-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+label {
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+input[type="text"],
+textarea {
+    background-color: var(--input);
+    border: 1px solid var(--border);
+    color: var(--foreground);
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    resize: none;
+}
+
+input[type="radio"] {
+    margin-right: 0.5rem;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 0.25rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.checkout-btn {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    padding: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.2s ease;
+}
+
+.checkout-btn:hover {
+    background-color: #e4e4e7;
+    color: #18181b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .checkout-container {
+        padding: 1rem;
+    }
+
+    .checkout-btn {
+        font-size: 0.95rem;
+        padding: 0.75rem;
+    }
+}
