@@ -27,7 +27,7 @@ public class addProductController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/pages/addproduct.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/pages/admin/addproduct.jsp").forward(request, response);
 	}
 
 	@Override
@@ -47,12 +47,12 @@ public class addProductController extends HttpServlet {
 				price = Double.parseDouble(priceStr.trim());
 			} catch (NumberFormatException e) {
 				req.setAttribute("message", "Invalid price format.");
-				req.getRequestDispatcher("/WEB-INF/pages/addproduct.jsp").forward(req, response);
+				req.getRequestDispatcher("/WEB-INF/pages/admin/addproduct.jsp").forward(req, response);
 				return;
 			}
 		} else {
 			req.setAttribute("message", "Price is required.");
-			req.getRequestDispatcher("/WEB-INF/pages/addproduct.jsp").forward(req, response);
+			req.getRequestDispatcher("/WEB-INF/pages/admin/addproduct.jsp").forward(req, response);
 			return;
 		}
 
@@ -63,7 +63,7 @@ public class addProductController extends HttpServlet {
 
 		if (!isUploaded) {
 			req.setAttribute("message", "Failed to upload product image.");
-			req.getRequestDispatcher("/WEB-INF/pages/addproduct.jsp").forward(req, response);
+			req.getRequestDispatcher("/WEB-INF/pages/admin/addproduct.jsp").forward(req, response);
 			return;
 		}
 
@@ -90,6 +90,6 @@ public class addProductController extends HttpServlet {
 			req.setAttribute("message", "Database error: " + e.getMessage());
 		}
 
-		req.getRequestDispatcher("/WEB-INF/pages/addproduct.jsp").forward(req, response);
+		req.getRequestDispatcher("/WEB-INF/pages/admin/addproduct.jsp").forward(req, response);
 	}
 }

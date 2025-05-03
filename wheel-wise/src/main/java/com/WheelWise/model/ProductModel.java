@@ -7,6 +7,7 @@ public class ProductModel {
 	private String category;
 	private double price;
 	private String imageUrl;
+	private int stock;
 
 	// Getters and setters
 	public int getId() {
@@ -55,5 +56,13 @@ public class ProductModel {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 }

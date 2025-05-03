@@ -106,7 +106,7 @@
 				<div class="recent-orders">
 					<div class="section-header">
 						<h2>Recent Orders</h2>
-						<button class="view-all">View All</button>
+						<button class="view-all"><a href="${pageContext.request.contextPath}/order">View All</a></button>
 					</div>
 					<div class="table-container">
 						<table>

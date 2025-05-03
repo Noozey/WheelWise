@@ -3,17 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>Add Product</title>
-	<style>
-
+<meta charset="UTF-8">
+<title>Add Product</title>
+<style>
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	background-color: #0e0e0e;
 	padding: 40px;
 	color: #ffffff;
 }
-
 form {
 	background-color: #1e1e1e;
 	padding: 40px;
@@ -65,7 +63,6 @@ label {
 }
 
 .submit-button {
-	grid-column: span 2;
 	background-color: #8a2be2;
 	color: white;
 	border: none;
@@ -74,8 +71,8 @@ label {
 	font-size: 17px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
-    width: 80%;
-    justify-self: center;
+	width: 50%;
+	justify-self: center;
 }
 
 .submit-button:hover {
@@ -101,11 +98,14 @@ input[type="file"] {
 ::file-selector-button:hover {
 	background-color: #6a1bbf;
 }
-
-	</style>
+</style>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/admin.css">
 </head>
 <body>
-	<form action="${pageContext.request.contextPath}/addproduct" method="post" enctype="multipart/form-data">
+
+	<form action="${pageContext.request.contextPath}/addproduct"
+		method="post" enctype="multipart/form-data">
 		<span>
 			<label>Product-Name</label>
 			<input type="text" placeholder="air-filter" class="input"
@@ -138,7 +138,6 @@ input[type="file"] {
 		<span>
 			<button type="submit" class="submit-button">Submit</button>
 		</span>
-
 	</form>
 </body>
 </html>

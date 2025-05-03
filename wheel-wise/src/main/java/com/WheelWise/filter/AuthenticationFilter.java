@@ -29,6 +29,8 @@ public class AuthenticationFilter implements Filter {
 	private static final String ABOUTUS = "/about";
 	private static final String CONTACT = "/contact";
 	private static final String order = "/order";
+	private static final String ADDPRODUCT = "/addproduct";
+	private static final String COUSTOMERS = "/coustomers";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -60,9 +62,12 @@ public class AuthenticationFilter implements Filter {
 		boolean isPublic = path.equals(LOGIN) || path.equals(REGISTER) || path.equals(HOME) || path.equals(ROOT)
 				|| path.equals(PRODUCT) || path.equals(ABOUTUS) || path.equals(CONTACT);
 
-		// Admin user trying to access login or register – redirect to dashboard
-		if (isLoggedIn && ("admin".equals(role) || "user".equals(role))
-				&& (path.equals(LOGIN) || path.equals(REGISTER))) {
+		// Admin-only pages
+		boolean isAdminOnly = path.equals(ADMIN_DASHBOARD) || path.equals(order) || path.equals(ADDPRODUCT)
+				|| path.equals(COUSTOMERS) || path.equals(ADMINPRODUCT) || path.startsWith("/admin");
+
+		// Redirect logged-in users trying to access login or register
+		if (isLoggedIn && (path.equals(LOGIN) || path.equals(REGISTER))) {
 			res.sendRedirect(contextPath + (role.equals("admin") ? ADMIN_DASHBOARD : HOME));
 			return;
 		}
@@ -73,30 +78,25 @@ public class AuthenticationFilter implements Filter {
 			return;
 		}
 
-		// Not logged in, trying to access protected page – redirect to login
+		// Not logged in
 		if (!isLoggedIn) {
 			res.sendRedirect(contextPath + LOGIN);
 			return;
 		}
 
-		// Admin access rules
+		// Admin users
 		if ("admin".equals(role)) {
-			if (path.equals(ADMIN_DASHBOARD) || path.startsWith("/admin") || path.matches(".*\\.(css|js)$")
-					|| path.equals(ADMINPRODUCT) || path.equals(order)) {
-				chain.doFilter(request, response);
-			} else {
-				res.sendRedirect(contextPath + ADMIN_DASHBOARD);
-			}
+			chain.doFilter(request, response);
 			return;
 		}
 
-		// User trying to access admin dashboard
-		if (path.equals(ADMIN_DASHBOARD)) {
+		// Regular users trying to access admin-only pages
+		if (isAdminOnly) {
 			res.sendRedirect(contextPath + HOME);
 			return;
 		}
 
-		// All other cases – allow
+		// All other logged-in users access
 		chain.doFilter(request, response);
 	}
 
