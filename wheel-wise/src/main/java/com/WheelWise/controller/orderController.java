@@ -57,4 +57,35 @@ public class orderController extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error retrieving order data");
 		}
 	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String orderId = request.getParameter("orderId");
+		String newStatus = request.getParameter("newStatus");
+
+		if (orderId != null && newStatus != null) {
+			String sql = "UPDATE `order` SET delivery_status = ? WHERE order_id = ?";
+
+			try (Connection conn = DbConfig.getDbConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+				stmt.setString(1, newStatus);
+				stmt.setInt(2, Integer.parseInt(orderId));
+
+				int rowsAffected = stmt.executeUpdate();
+
+				if (rowsAffected > 0) {
+					// If status update is successful, redirect to the order page
+					response.sendRedirect(request.getContextPath() + "/order");
+				} else {
+					// If no rows were affected, send an error response
+					response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error updating order status");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error updating order status");
+			}
+		} else {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid order ID or status");
+		}
+	}
 }

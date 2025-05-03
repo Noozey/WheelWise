@@ -8,6 +8,7 @@ public class Order {
 	private String customerName;
 	private Date orderDate;
 	private String status;
+	private String productName;
 	private double total;
 
 	// Getters and setters
@@ -49,5 +50,14 @@ public class Order {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+
 	}
 }
