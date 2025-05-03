@@ -1,76 +1,88 @@
 @charset "UTF-8";
 
 * {
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	font-family: 'Segoe UI', sans-serif;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-  background: #1a1a1a; /* Dark background like WheelWise */
-  color: #fff; /* White text for the dark theme */
+	background: #1a1a1a; /* Dark background like WheelWise */
+	color: #fff; /* White text for the dark theme */
 }
 
 .content {
-  padding: 40px;
-  background: #1a1a1a;
+	padding: 40px;
+	background: #1a1a1a;
 }
 
 .section {
-  background-color: #252525; /* Dark section background */
-  border-radius: 10px;
-  padding: 30px;
-  margin-bottom: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+	background-color: #252525; /* Dark section background */
+	border-radius: 10px;
+	padding: 30px;
+	margin-bottom: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 
 .section h2 {
-  margin-bottom: 20px;
-  color: #fff; /* White text for headers */
-  font-size: 24px;
+	margin-bottom: 20px;
+	color: #fff; /* White text for headers */
+	font-size: 24px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .form-group label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 6px;
-  color: #ccc; /* Light gray for labels */
+	display: block;
+	font-size: 14px;
+	margin-bottom: 6px;
+	color: #ccc; /* Light gray for labels */
 }
 
 .form-group input {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #444; /* Darker border for inputs */
-  background: #333; /* Dark input background */
-  color: #fff; /* White text in inputs */
-  font-size: 14px;
+	width: 100%;
+	padding: 10px;
+	border-radius: 6px;
+	border: 1px solid #444; /* Darker border for inputs */
+	background: #333; /* Dark input background */
+	color: #fff; /* White text in inputs */
+	font-size: 14px;
 }
 
 .form-group input::placeholder {
-  color: #888; /* Lighter placeholder text */
+	color: #888; /* Lighter placeholder text */
 }
 
 .save-btn {
-  background-color: #8a2be2; /* Purple button */
-  color: white;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+	background-color: #8a2be2; /* Purple button */
+	color: white;
+	padding: 12px 25px;
+	border: none;
+	border-radius: 25px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
 .save-btn:hover {
-  background-color: #6a1bb2; /* Slightly darker purple on hover */
+	background-color: #6a1bb2; /* Slightly darker purple on hover */
 }
 
 .section p {
-  color: #ccc; /* Light gray for the cart message */
+	color: #ccc; /* Light gray for the cart message */
+}
+
+.order-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
+
+.order-table th, .order-table td {
+	padding: 10px;
+	border: 1px solid #ddd;
+	text-align: left;
 }

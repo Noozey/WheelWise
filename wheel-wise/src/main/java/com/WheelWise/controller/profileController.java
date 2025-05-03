@@ -5,8 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.WheelWise.config.DbConfig;
+import com.WheelWise.model.Order;
 import com.WheelWise.util.PasswordUtil;
 
 import jakarta.servlet.ServletException;
@@ -37,6 +40,7 @@ public class profileController extends HttpServlet {
 				return;
 			}
 
+			// Load profile info
 			String selectQuery = "SELECT * FROM User WHERE user_id = ?";
 			try (PreparedStatement selectStmt = dbConn.prepareStatement(selectQuery)) {
 				selectStmt.setInt(1, userId);
@@ -50,12 +54,49 @@ public class profileController extends HttpServlet {
 					request.setAttribute("gender", rs.getString("gender"));
 					request.setAttribute("email", rs.getString("email"));
 					request.setAttribute("phoneNumber", rs.getString("number"));
-					request.setAttribute("password", rs.getString("password")); // optional, usually hidden
+					request.setAttribute("password", rs.getString("password"));
 					request.setAttribute("imagePath", rs.getString("image_path"));
 				} else {
 					request.setAttribute("error", "User not found.");
 				}
 			}
+
+			// Load user orders
+			List<Order> orders = new ArrayList<>();
+
+			String orderQuery = """
+											SELECT
+					  o.order_id,
+					  u.first_name,
+					  u.last_name,
+					  o.order_date,
+					  o.delivery_status AS status,
+					  SUM(p.price * op.quantity) AS total
+					FROM `order` o
+					JOIN `user` u ON o.user_id = u.user_id
+					JOIN order_product op ON o.order_id = op.order_id
+					JOIN product p ON op.product_id = p.product_id
+					WHERE o.user_id = ?
+					GROUP BY o.order_id, u.first_name, u.last_name, o.order_date, o.delivery_status
+					ORDER BY o.order_date DESC
+										""";
+
+			try (PreparedStatement orderStmt = dbConn.prepareStatement(orderQuery)) {
+				orderStmt.setInt(1, userId);
+				ResultSet orderRs = orderStmt.executeQuery();
+
+				while (orderRs.next()) {
+					Order order = new Order();
+					order.setOrderId(orderRs.getInt("order_id"));
+					order.setCustomerName(orderRs.getString("first_name") + " " + orderRs.getString("last_name"));
+					order.setOrderDate(orderRs.getDate("order_date"));
+					order.setStatus(orderRs.getString("status"));
+					order.setTotal(orderRs.getDouble("total"));
+					orders.add(order);
+				}
+				request.setAttribute("orders", orders);
+			}
+
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 			request.setAttribute("error", "Error retrieving user data.");
@@ -123,7 +164,6 @@ public class profileController extends HttpServlet {
 			request.setAttribute("error", "Error updating user data.");
 		}
 
-		// Reload user data after update
 		doGet(request, response); // show updated data
 	}
 }
