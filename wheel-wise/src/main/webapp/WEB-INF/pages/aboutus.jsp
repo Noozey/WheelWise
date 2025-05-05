@@ -322,5 +322,6 @@ footer {
 				in Touch</a>
 		</section>
 	</div>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

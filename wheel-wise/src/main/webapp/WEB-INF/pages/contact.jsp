@@ -368,5 +368,6 @@ footer {
 					loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 			</div>
 	</main>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>
