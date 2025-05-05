@@ -32,6 +32,7 @@
 						<line x1="4" x2="4" y1="22" y2="15" /></svg>
 			Orders
 		</a>
+
 		<a href="${pageContext.request.contextPath}/coustomers">
 			<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
 				viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -43,6 +44,9 @@
 						<path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
 			Customers
 		</a>
+
+		<a href="${pageContext.request.contextPath}/profile"> Profile </a>
+
 		<a href="${pageContext.request.contextPath}/logout"> Sign Out </a>
 	</nav>
 </aside>

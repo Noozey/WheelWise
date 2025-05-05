@@ -70,8 +70,7 @@ public class LoginController extends HttpServlet {
 
 		if (loginStatus != null && loginStatus) {
 			String role = userModel.getRole();
-			int userId = userModel.getId(); // Assuming ID is set in validatePassword
-			System.out.println("Role: " + role + ", ID: " + userId);
+			int userId = userModel.getId();
 
 			SessionUtil.setAttribute(req, "userId", userId);
 			SessionUtil.setAttribute(req, "username", username);

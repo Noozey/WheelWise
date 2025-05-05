@@ -68,7 +68,7 @@ public class addProductController extends HttpServlet {
 		}
 
 		// Insert product into database
-		String sql = "INSERT INTO product (product_name, category, price, brand, product_image) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO product (product_name, category, price, brand, product_image,stock) VALUES (?, ?, ?, ?, ?,?)";
 
 		try (Connection conn = DbConfig.getDbConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, productName);
@@ -76,6 +76,7 @@ public class addProductController extends HttpServlet {
 			stmt.setDouble(3, price);
 			stmt.setString(4, brand);
 			stmt.setString(5, imagePath);
+			stmt.setInt(6, 5);
 
 			int rows = stmt.executeUpdate();
 

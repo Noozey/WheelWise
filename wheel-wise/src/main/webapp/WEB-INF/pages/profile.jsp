@@ -6,17 +6,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Profile Page</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/profile.css">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/navbar.css" />
+
+<c:if test="${cookie.role.value == 'admin'}">
+	<link rel="stylesheet" type="text/css"
+		href="${pageContext.request.contextPath}/css/admin.css" />
+</c:if>
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/profile.css">
 </head>
-<body>
-	<!-- Navbar -->
-	<jsp:include page="navbar.jsp" />
+<body style="display: flex;">
 
-	<div class="content">
+	<!-- Admin sidebar outside of content div -->
+	<c:if test="${cookie.role.value == 'admin'}">
+		<jsp:include page="./admin/adminNavBar.jsp" />
+	</c:if>
 
+	<!-- Content wrapper -->
+	<div class="content" style="width: 100%;">
+
+		<!-- Default navbar inside content (for non-admins) -->
+		<c:if test="${cookie.role.value != 'admin'}">
+			<jsp:include page="navbar.jsp" />
+		</c:if>
+
+		<!-- Profile Section -->
 		<div class="section">
 			<div class="section profile-header"
 				style="text-align: center; margin-bottom: 20px;">
@@ -75,6 +91,7 @@
 				<button type="submit" class="save-btn">Save Changes</button>
 			</form>
 		</div>
+
 		<!-- Order History Section -->
 		<div class="section">
 			<h2>Order History</h2>
@@ -106,7 +123,6 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-
 
 	</div>
 </body>

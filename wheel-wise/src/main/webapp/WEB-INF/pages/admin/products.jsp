@@ -182,9 +182,10 @@ to {
 								</td>
 								<td>
 									<input type="hidden" class="product-id" value="${product.id}" />
-									<button class="action-btn edit-btn">Edit</button>
+									<button class="action-btn edit-btn" style="width: 75px;">Edit</button>
 									<form method="post"
-										action="${pageContext.request.contextPath}/products">
+										action="${pageContext.request.contextPath}/products"
+										style="margin-top: 5px;">
 										<input type="hidden" name="action" value="delete" />
 										<input type="hidden" name="id" value="${product.id}" />
 										<button type="submit" class="action-btn delete-btn">Delete</button>
