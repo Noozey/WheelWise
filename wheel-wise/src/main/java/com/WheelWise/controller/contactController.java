@@ -9,39 +9,50 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class contactController
+ * contactController handles requests for the Contact Us page. It serves the
+ * contact.jsp page on GET requests. Currently, POST requests are forwarded to
+ * the GET handler.
  */
 @WebServlet("/contact")
 public class contactController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * Default constructor.
 	 */
 	public contactController() {
 		super();
-		// TODO Auto-generated constructor stub
+		// Constructor stub - no additional initialization required.
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Handles GET requests to the contact page. Forwards the request to the
+	 * contact.jsp page.
+	 *
+	 * @param request  HttpServletRequest object
+	 * @param response HttpServletResponse object
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// Forward the request to the contact.jsp view page
 		request.getRequestDispatcher("/WEB-INF/pages/contact.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Handles POST requests by delegating to the doGet method. This means form
+	 * submissions or other POST requests will simply display the contact page
+	 * again.
+	 *
+	 * @param request  HttpServletRequest object
+	 * @param response HttpServletResponse object
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// Delegate POST handling to doGet to show the same contact page
 		doGet(request, response);
 	}
-
 }

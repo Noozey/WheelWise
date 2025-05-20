@@ -18,24 +18,50 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * cartController handles all requests related to the shopping cart. It supports
+ * adding, removing, updating cart items and immediate purchase ('buy-now'
+ * action). It manages the cart stored in the user session.
+ */
 @WebServlet("/cart")
 public class cartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Handles GET requests by forwarding to the cart.jsp page to display the cart
+	 * contents.
+	 *
+	 * @param request  HttpServletRequest object
+	 * @param response HttpServletResponse object
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
 	}
 
+	/**
+	 * Handles POST requests for cart operations: - add: adds product(s) to the cart
+	 * - remove: removes product from the cart - update: updates the quantity of a
+	 * product in the cart - buy-now: adds product to cart and redirects immediately
+	 * to checkout
+	 *
+	 * @param request  HttpServletRequest object
+	 * @param response HttpServletResponse object
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException      if an I/O error occurs
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String action = request.getParameter("action");
 		HttpSession session = request.getSession();
-		List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 
+		// Retrieve current cart from session or create a new one if none exists
+		List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 		if (cart == null) {
 			cart = new ArrayList<>();
 		}
@@ -44,6 +70,7 @@ public class cartController extends HttpServlet {
 			int productId = Integer.parseInt(request.getParameter("productId"));
 
 			if ("add".equals(action)) {
+				// Handle adding product(s) to cart
 				int quantity = Integer.parseInt(request.getParameter("quantity"));
 				try (Connection conn = DbConfig.getDbConnection()) {
 					String sql = "SELECT * FROM product WHERE product_id = ?";
@@ -51,6 +78,7 @@ public class cartController extends HttpServlet {
 					stmt.setInt(1, productId);
 					ResultSet rs = stmt.executeQuery();
 					if (rs.next()) {
+						// Create product model from database data
 						ProductModel p = new ProductModel();
 						p.setId(productId);
 						p.setName(rs.getString("product_name"));
@@ -59,6 +87,7 @@ public class cartController extends HttpServlet {
 						p.setPrice(rs.getDouble("price"));
 						p.setImageUrl(rs.getString("product_image"));
 
+						// Check if product is already in cart, update quantity if yes
 						boolean found = false;
 						for (CartItem item : cart) {
 							if (item.getProduct().getId() == productId) {
@@ -68,15 +97,18 @@ public class cartController extends HttpServlet {
 							}
 						}
 
+						// If not found, add new cart item
 						if (!found)
 							cart.add(new CartItem(p, quantity));
 					}
 				}
 
 			} else if ("remove".equals(action)) {
+				// Remove the product from the cart
 				cart.removeIf(item -> item.getProduct().getId() == productId);
 
 			} else if ("update".equals(action)) {
+				// Update the quantity of the specified product in the cart
 				int newQuantity = Integer.parseInt(request.getParameter("quantity"));
 				for (CartItem item : cart) {
 					if (item.getProduct().getId() == productId) {
@@ -86,15 +118,15 @@ public class cartController extends HttpServlet {
 				}
 
 			} else if ("buy-now".equals(action)) {
-				// When 'Buy Now' is pressed, add the product to the cart and redirect to
-				// checkout
-				int quantity = 1; // You can set the quantity to 1 or get it from the request if needed
+				// Add product to cart and redirect directly to checkout page
+				int quantity = 1; // Default quantity for 'buy-now' action
 				try (Connection conn = DbConfig.getDbConnection()) {
 					String sql = "SELECT * FROM product WHERE product_id = ?";
 					PreparedStatement stmt = conn.prepareStatement(sql);
 					stmt.setInt(1, productId);
 					ResultSet rs = stmt.executeQuery();
 					if (rs.next()) {
+						// Create product model from database data
 						ProductModel p = new ProductModel();
 						p.setId(productId);
 						p.setName(rs.getString("product_name"));
@@ -103,7 +135,7 @@ public class cartController extends HttpServlet {
 						p.setPrice(rs.getDouble("price"));
 						p.setImageUrl(rs.getString("product_image"));
 
-						// Add the product to the cart (if not already in cart)
+						// Add to cart or update quantity if already exists
 						boolean found = false;
 						for (CartItem item : cart) {
 							if (item.getProduct().getId() == productId) {
@@ -116,19 +148,21 @@ public class cartController extends HttpServlet {
 						if (!found)
 							cart.add(new CartItem(p, quantity));
 
-						// Proceed to checkout page
+						// Save updated cart in session and redirect to checkout
 						session.setAttribute("cart", cart);
 						response.sendRedirect(request.getContextPath() + "/checkout");
-						return; // Prevent further processing
+						return; // Stop further processing after redirect
 					}
 				}
 			}
 
 		} catch (Exception e) {
+			// Log any exceptions for debugging
 			e.printStackTrace();
 		}
 
-		// Update the session cart after all actions
+		// Update the cart in session after all actions and redirect back to the cart
+		// page
 		session.setAttribute("cart", cart);
 		response.sendRedirect(request.getContextPath() + "/cart");
 	}

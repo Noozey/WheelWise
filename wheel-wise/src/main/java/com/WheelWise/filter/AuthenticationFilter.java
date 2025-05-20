@@ -31,6 +31,7 @@ public class AuthenticationFilter implements Filter {
 	private static final String order = "/order";
 	private static final String ADDPRODUCT = "/addproduct";
 	private static final String COUSTOMERS = "/coustomers";
+	private static final String ProductDetails = "/productInformation";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -60,7 +61,7 @@ public class AuthenticationFilter implements Filter {
 
 		// Public pages
 		boolean isPublic = path.equals(LOGIN) || path.equals(REGISTER) || path.equals(HOME) || path.equals(ROOT)
-				|| path.equals(PRODUCT) || path.equals(ABOUTUS) || path.equals(CONTACT);
+				|| path.equals(PRODUCT) || path.equals(ABOUTUS) || path.equals(CONTACT) || path.equals(ProductDetails);
 
 		// Admin-only pages
 		boolean isAdminOnly = path.equals(ADMIN_DASHBOARD) || path.equals(order) || path.equals(ADDPRODUCT)

@@ -5,13 +5,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>${product.name}-AutoPartsElite</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/productsInformation.css">
+	href="${pageContext.request.contextPath}/css/productsInformation.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/navbar.css">
+	href="${pageContext.request.contextPath}/css/navbar.css" />
 </head>
 <body>
 	<jsp:include page="navbar.jsp" />
@@ -21,7 +21,7 @@
 				<div class="main-image">
 					<img
 						src="${pageContext.request.contextPath}/resources/images/product/${product.imageUrl}"
-						alt="${product.name}" id="mainImage">
+						alt="${product.name}" id="mainImage" />
 				</div>
 			</div>
 
@@ -66,15 +66,15 @@
 					<div class="quantity-selector">
 						<button class="quantity-btn" onclick="updateQuantity(-1)">-</button>
 						<input type="number" value="1" min="1" class="quantity-input"
-							id="quantity">
+							id="quantity" />
 						<button class="quantity-btn" onclick="updateQuantity(1)">+</button>
 					</div>
 					<div class="action-buttons">
 						<form action="${pageContext.request.contextPath}/cart"
-							method="post" class="cart-form">
+							method="post" class="cart-form" id="addToCartForm">
 							<input type="hidden" name="action" value="add" />
 							<input type="hidden" name="productId" value="${product.id}" />
-							<input type="hidden" name="quantity" value="1" />
+							<input type="hidden" name="quantity" value="1" id="cartQuantity" />
 							<button type="submit" class="add-to-cart-btn">
 								Add to Cart
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -89,10 +89,11 @@
 							</button>
 						</form>
 						<form action="${pageContext.request.contextPath}/cart"
-							method="post" class="buy-now-form">
+							method="post" class="buy-now-form" id="buyNowForm">
 							<input type="hidden" name="action" value="buy-now" />
 							<input type="hidden" name="productId" value="${product.id}" />
-							<input type="hidden" name="quantity" value="1" />
+							<input type="hidden" name="quantity" value="1"
+								id="buyNowQuantity" />
 							<button type="submit" class="buy-now-btn">
 								Buy Now
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
@@ -118,6 +119,44 @@
 						</table>
 					</div>
 				</div>
+			</div>
+		</div>
+
+		<div class="comments-section">
+			<div class="comments-header">
+				<h2>Customer Reviews</h2>
+				<span class="rating-count">${fn:length(comments)} reviews</span>
+			</div>
+
+			<form class="comment-form"
+				action="${pageContext.request.contextPath}/productInformation"
+				method="post">
+				<textarea name="reviewContent" placeholder="Write your review..."
+					required></textarea>
+				<input type="hidden" name="productId" value="${product.id}" />
+				<input type="hidden" id="ratingValue" name="rating" value="0" />
+				<div class="comment-form-footer">
+					<button type="submit" class="submit-comment-btn">Submit
+						Review</button>
+				</div>
+			</form>
+
+			<div class="comments-list">
+				<c:forEach var="comment" items="${comments}">
+					<div class="comment">
+						<div class="comment-header">
+							<div class="comment-author">
+								<img
+									src="${pageContext.request.contextPath}/resources/images/users/${comment.userImagePath}"
+									alt="${comment.userName}" class="author-avatar" />
+
+								<span class="author-name">${comment.userName}</span>
+							</div>
+							<span class="comment-date">${comment.commentDate}</span>
+						</div>
+						<p class="comment-content">${comment.content}</p>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</main>

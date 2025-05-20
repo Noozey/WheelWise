@@ -22,9 +22,6 @@
 	<div class="container">
 		<header class="header">
 			<div class="header-content">
-				<div class="search-container">
-					<input type="text" id="search" placeholder="Search parts...">
-				</div>
 			</div>
 		</header>
 

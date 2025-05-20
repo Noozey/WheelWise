@@ -9,16 +9,27 @@ import java.util.List;
 import com.WheelWise.config.DbConfig;
 import com.WheelWise.model.UserModel;
 
+/**
+ * UserService provides operations related to users.
+ */
 public class UserService {
+
+	/**
+	 * Retrieves all users with the role 'user' (i.e., customers) from the database.
+	 * 
+	 * @return List of UserModel objects representing all customers.
+	 */
 	public List<UserModel> getAllUsers() {
 		List<UserModel> users = new ArrayList<>();
 
-		String query = "SELECT * FROM User WHERE role = 'user'"; // Only customers
+		// SQL query to select all users with role 'user'
+		String query = "SELECT * FROM User WHERE role = 'user'";
 
 		try (Connection conn = DbConfig.getDbConnection();
 				PreparedStatement stmt = conn.prepareStatement(query);
 				ResultSet rs = stmt.executeQuery()) {
 
+			// Iterate through the result set and populate UserModel objects
 			while (rs.next()) {
 				UserModel user = new UserModel();
 				user.setId(rs.getInt("user_id"));
@@ -28,7 +39,6 @@ public class UserService {
 				user.setUserName(rs.getString("username"));
 				user.setNumber(rs.getString("number"));
 				user.setImagePath(rs.getString("image_path"));
-				// Add other fields as needed
 
 				users.add(user);
 			}
@@ -38,5 +48,4 @@ public class UserService {
 
 		return users;
 	}
-
 }

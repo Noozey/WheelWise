@@ -45,7 +45,7 @@
 			</div>
 			<h2>Edit Profile</h2>
 			<form action="${pageContext.request.contextPath}/profile"
-				method="post">
+				method="post" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="firstName">First Name</label>
 					<input type="text" name="firstName" id="firstName"
@@ -87,6 +87,11 @@
 					<label for="password">New Password</label>
 					<input type="password" name="password" id="password"
 						placeholder="Enter new password" />
+				</div>
+				<div class="form-group">
+					<label for="profileImage">Upload New Profile Image</label>
+					<input type="file" name="profileImage" id="profileImage"
+						accept="image/*" />
 				</div>
 				<button type="submit" class="save-btn">Save Changes</button>
 			</form>

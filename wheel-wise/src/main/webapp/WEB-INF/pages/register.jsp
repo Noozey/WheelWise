@@ -28,64 +28,64 @@
 					<div class="row">
 						<div class="col">
 							<label for="firstName">First Name</label>
-							<input class="input" type="text" id="firstName" name="firstName"
-								required />
+							<input class="input"  id="firstName" name="firstName"
+								 />
 						</div>
 						<div class="col">
 							<label for="lastName">Last Name</label>
-							<input class="input" type="text" id="lastName" name="lastName"
-								required />
+							<input class="input"  id="lastName" name="lastName"
+								 />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="username">Username</label>
-							<input class="input" type="text" id="username" name="username"
-								required />
+							<input class="input"  id="username" name="username"
+								 />
 						</div>
 						<div class="col">
 							<label for="birthday">Date of Birth</label>
 							<input class="input" type="date" id="birthday" name="dob"
-								required />
+								 />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="gender">Gender</label>
-							<select class="input" id="gender" name="gender" required>
+							<select class="input" id="gender" name="gender" >
 								<option value="male">Male</option>
 								<option value="female">Female</option>
 							</select>
 						</div>
 						<div class="col">
 							<label for="email">Email</label>
-							<input class="input" type="email" id="email" name="email"
-								required />
+							<input class="input"  id="email" name="email"
+								 />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="phoneNumber">Phone Number</label>
-							<input class="input" type="tel" id="phoneNumber"
-								name="phoneNumber" required />
+							<input class="input" id="phoneNumber"
+								name="phoneNumber"  />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="password">Password</label>
-							<input class="input" type="password" id="password"
-								name="password" required />
+							<input class="input" id="password" type="password"
+								name="password"  />
 						</div>
 						<div class="col">
 							<label for="retypePassword">Retype Password</label>
-							<input class="input" type="password" id="retypePassword"
-								name="retypePassword" required />
+							<input class="input" id="retypePassword" type="password"
+								name="retypePassword"  />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="image">Profile Picture</label>
-							<input class="input" type="file" id="image" name="image" />
+							<input class="input" id="image" name="image" type="file" />
 						</div>
 					</div>
 					<button type="submit">Submit</button>
