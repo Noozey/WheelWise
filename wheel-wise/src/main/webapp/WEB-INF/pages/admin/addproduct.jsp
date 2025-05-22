@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Add Product</title>
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/resources/favicon/favicon-96x96.png">
 <style>
 body {
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

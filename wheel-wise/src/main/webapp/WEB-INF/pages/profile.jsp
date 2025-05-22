@@ -6,6 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Profile Page</title>
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/resources/favicon/favicon-96x96.png">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/navbar.css" />
 

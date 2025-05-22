@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customers - AutoParts Elite Admin</title>
+<title>Customers</title>
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/resources/favicon/favicon-96x96.png">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/admin.css">
 </head>

@@ -12,8 +12,7 @@ public class DbConfig {
 
 	// Database configuration information
 	private static final String DB_NAME = "WheelWise";
-	private static final String URL = "jdbc:mysql://localhost:3307/" + DB_NAME + "?serverTimezone=UTC"; // Added
-																										// serverTimezone
+	private static final String URL = "jdbc:mysql://localhost:3307/" + DB_NAME + "?serverTimezone=UTC";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "";
 

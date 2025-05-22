@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Us - WheelWise | Premium Car Parts</title>
+<title>Contact Us</title>
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/resources/favicon/favicon-96x96.png">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 	rel="stylesheet">
@@ -30,6 +33,7 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 }
+
 .main-content {
 	flex: 1;
 	display: flex;
@@ -258,12 +262,13 @@ footer {
 
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/navbar.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/navbar.css" />
 </head>
 <body>
-<!-- Navbar -->
-  <jsp:include page="navbar.jsp" />
-  
+	<!-- Navbar -->
+	<jsp:include page="navbar.jsp" />
+
 	<main class="main-content">
 		<div class="container">
 			<section class="contact-hero">
@@ -318,7 +323,16 @@ footer {
 
 				<div class="contact-form">
 					<h2>Send Us a Message</h2>
-					<form>
+					<c:if test="${not empty success}">
+						<div class="success-message">${success}</div>
+					</c:if>
+					<c:if test="${not empty error}">
+						<div class="error-message">${error}</div>
+					</c:if>
+
+					<form action="${pageContext.request.contextPath}/contact"
+						method="post">
+
 						<div class="form-group">
 							<label for="name">Full Name</label>
 							<input type="text" id="name" name="name" class="form-control"

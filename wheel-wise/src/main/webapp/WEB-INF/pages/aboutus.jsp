@@ -5,7 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About Us - WheelWise | Future of Auto Parts</title>
+<title>About Us</title>
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/resources/favicon/favicon-96x96.png">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
 	rel="stylesheet">
@@ -292,23 +294,23 @@ footer {
 
 			<div class="grid">
 				<div class="team-member">
-					<img src="images/ceo.jpg">
+					<img src="${pageContext.request.contextPath}/resources/images/team/abhinav.jpeg">
 					<h3>Abhinav Shakya</h3>
 				</div>
 				<div class="team-member">
-					<img src="images/cto.jpg">
-					<h3>Rohan Upreti
+					<img src="${pageContext.request.contextPath}/resources/images/team/rohan.jpeg">
+					<h3>Rohan Upreti</h3>
 				</div>
 				<div class="team-member">
-					<img src="images/cmo.jpg">
+					<img src="${pageContext.request.contextPath}/resources/images/team/ramit.jpeg">
 					<h3>Ramit Kharel</h3>
 				</div>
 				<div class="team-member">
-					<img src="images/ops-director.jpg">
+					<img src="${pageContext.request.contextPath}/resources/images/team/Bigyan.jpeg">
 					<h3>Bigyan Lama</h3>
 				</div>
 				<div class="team-member">
-					<img src="images/lead-engineer.jpg">
+					<img src="${pageContext.request.contextPath}/resources/images/team/sahil1.jpeg">
 					<h3>Sahil Sherchan</h3>
 				</div>
 			</div>

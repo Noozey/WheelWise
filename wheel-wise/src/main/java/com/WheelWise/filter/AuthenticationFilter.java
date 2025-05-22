@@ -32,6 +32,7 @@ public class AuthenticationFilter implements Filter {
 	private static final String ADDPRODUCT = "/addproduct";
 	private static final String COUSTOMERS = "/coustomers";
 	private static final String ProductDetails = "/productInformation";
+	private static final String MESSAGE = "/messages";
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -65,7 +66,8 @@ public class AuthenticationFilter implements Filter {
 
 		// Admin-only pages
 		boolean isAdminOnly = path.equals(ADMIN_DASHBOARD) || path.equals(order) || path.equals(ADDPRODUCT)
-				|| path.equals(COUSTOMERS) || path.equals(ADMINPRODUCT) || path.startsWith("/admin");
+				|| path.equals(COUSTOMERS) || path.equals(ADMINPRODUCT) || path.equals(MESSAGE)
+				|| path.startsWith("/admin");
 
 		// Redirect logged-in users trying to access login or register
 		if (isLoggedIn && (path.equals(LOGIN) || path.equals(REGISTER))) {

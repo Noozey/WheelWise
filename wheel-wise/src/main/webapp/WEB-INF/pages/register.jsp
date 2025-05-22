@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/signup.css" />
 <title>Signup</title>
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/resources/favicon/favicon-96x96.png">
 </head>
 <body>
 	<div class="container">
@@ -28,58 +30,52 @@
 					<div class="row">
 						<div class="col">
 							<label for="firstName">First Name</label>
-							<input class="input"  id="firstName" name="firstName"
-								 />
+							<input class="input" id="firstName" name="firstName" />
 						</div>
 						<div class="col">
 							<label for="lastName">Last Name</label>
-							<input class="input"  id="lastName" name="lastName"
-								 />
+							<input class="input" id="lastName" name="lastName" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="username">Username</label>
-							<input class="input"  id="username" name="username"
-								 />
+							<input class="input" id="username" name="username" />
 						</div>
 						<div class="col">
 							<label for="birthday">Date of Birth</label>
-							<input class="input" type="date" id="birthday" name="dob"
-								 />
+							<input class="input" type="date" id="birthday" name="dob" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="gender">Gender</label>
-							<select class="input" id="gender" name="gender" >
+							<select class="input" id="gender" name="gender">
 								<option value="male">Male</option>
 								<option value="female">Female</option>
 							</select>
 						</div>
 						<div class="col">
 							<label for="email">Email</label>
-							<input class="input"  id="email" name="email"
-								 />
+							<input class="input" id="email" name="email" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="phoneNumber">Phone Number</label>
-							<input class="input" id="phoneNumber"
-								name="phoneNumber"  />
+							<input class="input" id="phoneNumber" name="phoneNumber" />
 						</div>
 					</div>
 					<div class="row">
 						<div class="col">
 							<label for="password">Password</label>
 							<input class="input" id="password" type="password"
-								name="password"  />
+								name="password" />
 						</div>
 						<div class="col">
 							<label for="retypePassword">Retype Password</label>
 							<input class="input" id="retypePassword" type="password"
-								name="retypePassword"  />
+								name="retypePassword" />
 						</div>
 					</div>
 					<div class="row">

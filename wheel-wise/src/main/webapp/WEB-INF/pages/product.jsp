@@ -8,7 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Car Parts Product Page with Filters</title>
+<title>Product</title>
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/resources/favicon/favicon-96x96.png">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/navbar.css" />
 <link rel="stylesheet"
@@ -21,8 +23,7 @@
 
 	<div class="container">
 		<header class="header">
-			<div class="header-content">
-			</div>
+			<div class="header-content"></div>
 		</header>
 
 		<main>

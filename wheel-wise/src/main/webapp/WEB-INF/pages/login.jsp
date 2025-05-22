@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8" />
 <title>Login to your account</title>
-<!-- Set contextPath variable for reuse -->
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/resources/favicon/favicon-96x96.png">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/log.css" />
 </head>
@@ -21,13 +22,13 @@
 			<div class="row">
 				<div class="col">
 					<label for="username">Username:</label>
-					<input type="text" id="username" name="username"/>
+					<input type="text" id="username" name="username" />
 				</div>
 			</div>
 			<div class="row">
 				<div class="col">
 					<label for="password">Password:</label>
-					<input type="password" id="password" name="password"/>
+					<input type="password" id="password" name="password" />
 				</div>
 			</div>
 			<button type="submit" class="login-button">Login</button>
